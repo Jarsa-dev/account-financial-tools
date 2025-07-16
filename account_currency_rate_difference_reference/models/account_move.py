@@ -7,9 +7,14 @@ from odoo import _, fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    exchange_move_id = fields.Many2one(
+    exchange_move_ids = fields.One2many(
         "account.move",
-        string="Currency Exchange Difference Move",
+        "exchange_origin_move_id",
+        string="Currency Exchange Difference Moves",
+    )
+    exchange_origin_move_id = fields.Many2one(
+        "account.move",
+        string="Origin Exchange Move",
     )
 
     def action_currency_rate_diference(self):
@@ -18,10 +23,7 @@ class AccountMove(models.Model):
             "view_type": "form",
             "view_mode": "form",
             "res_model": "account.move",
-            "res_id": self.exchange_move_id.id,
+            "domain": [("id", "in", self.exchange_move_id.ids)],
             "type": "ir.actions.act_window",
-            "context": {
-                "create": False,
-                "delete": False
-            }
+            "context": {"create": False, "delete": False},
         }

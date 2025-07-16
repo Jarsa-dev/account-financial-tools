@@ -19,7 +19,7 @@
             >
                 <attribute name="invisible">name == '/'</attribute>
                 <attribute name="readonly">1</attribute>
-            </xpath>
+                </xpath>
             <xpath expr="//div[hasclass('oe_title')]//h1//span" position="attributes">
                 <attribute name="invisible">state != 'draft' or name != '/'</attribute>
             </xpath>
